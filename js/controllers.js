@@ -448,6 +448,8 @@ function SearchCtrl($scope, $sce, $routeParams, $location, elastic, configuratio
     }
 
     $scope.redirectSearch = function () {
+        // do not search with empty search field
+        if (! $scope.search.simple) return;
         if ($scope.search.advanced.searchSources.length === 0) {
             $location.path("/search/" + $scope.search.simple);
         } else {

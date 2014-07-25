@@ -451,6 +451,8 @@ function SearchCtrl($scope, $sce, $routeParams, $location, elastic, configuratio
         if ($scope.search.advanced.searchSources.length === 0) {
             $location.path("/search/" + $scope.search.simple);
         } else {
+            var sourceStr = $scope.search.advanced.searchSources.join(",");
+            $location.path("/search/" + $scope.search.simple + "/sources/" + sourceStr);
             // handle the case when sources are specified
             $scope.restartSearch();
         }
@@ -458,6 +460,14 @@ function SearchCtrl($scope, $sce, $routeParams, $location, elastic, configuratio
 
     if ($routeParams.hasOwnProperty("searchStr") && $routeParams.searchStr) {
         $scope.search.simple = $routeParams.searchStr;
+
+        if ($routeParams.hasOwnProperty("sources") && $routeParams.sources) {
+            $scope.search.advanced.searchSources.push.apply(
+                $scope.search.advanced.searchSources,
+                $routeParams.sources.split(",")
+            );
+        }
+
         $scope.restartSearch();
     }
 }

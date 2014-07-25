@@ -12,7 +12,7 @@
                        placeholder="Search"/>
             </span>
 
-            <button class="btn btn-primary" ng-click="restartSearch()"><span class="glyphicon glyphicon-search glyphicon-white"></span> Search</button>
+            <button class="btn btn-primary" ng-click="redirectSearch()"><span class="glyphicon glyphicon-search glyphicon-white"></span> Search</button>
 
             <label> Filter by:
                 <select multiple class="form-control" ng-model="search.advanced.searchSources"
@@ -68,12 +68,13 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" ng-if="results.hits.length">
     <div class="col-md-12">
         <h3>Results</h3>
     </div>
 </div>
 <div class="row">
+    <div id="no-results-text" ng-if="results.hits.length === 0">No results</div>
     <div class="col-md-3">
         <div ng-repeat="(key,value) in aggs">
             <div><strong>{{key}}</strong></div>
@@ -109,7 +110,7 @@
                     max-size="maxSize" ng-change="changePage()" previous-text="&lsaquo;" next-text="&rsaquo;"
                     first-text="&laquo;" last-text="&raquo;"></pagination>
 
-        <div ng-repeat="result in results.hits" class="result">
+        <div ng-repeat="result in results.hits" class="result" ng-if="results.hits.length">
             <div>
               <p class="header">
                 <a href="{{result._source.url}}">{{result._source.title}}</a>

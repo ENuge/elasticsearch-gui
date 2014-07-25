@@ -52,3 +52,10 @@ em {
     font-style: normal;
     background-color: yellow;
 }
+
+#no-results-text {
+    font-size: 1.4em;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+}
